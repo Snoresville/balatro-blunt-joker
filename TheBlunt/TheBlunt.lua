@@ -25,8 +25,8 @@ local jokers = {
             name = "The Blunt",
             text = {
                 "Unscored cards are fed into {C:green}The Blunt{}.",
-                "Add {C:blue}Chips{} and {C:red}Mult{} to cards",
-                "scored in {C:attention}High Card{} hands.",
+                "Adds {C:blue}Chips{} and {C:red}Mult{} for each scoring",
+                "card in {C:attention}High Card{} hands.",
                 "{C:inactive}(Currently {C:blue}+#1# Chips{C:inactive} and {C:red}+#2# Mult{C:inactive})"
             }
         },
@@ -131,7 +131,7 @@ local function init_modded_jokers()
         )
     end
 
-    -- Order the jokers
+    -- Order the jokers by rarity
     local joker_sorted = {}
 
     for joker_name, joker_data in pairs(joker_objects) do
