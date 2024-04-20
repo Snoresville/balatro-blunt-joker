@@ -25,8 +25,8 @@ local jokers = {
             name = "The Blunt",
             text = {
                 "Unscored cards are fed into {C:green}The Blunt{}.",
-                "Adds {C:blue}Chips{} and {C:red}Mult{} for each scoring",
-                "card in {C:attention}High Card{} hands.",
+                "Adds {C:blue}Chips{} and {C:red}Mult{} everytime",
+                "a card is scored in {C:attention}High Card{} hands.",
                 "{C:inactive}(Currently {C:blue}+#1# Chips{C:inactive} and {C:red}+#2# Mult{C:inactive})"
             }
         },
@@ -61,8 +61,8 @@ local jokers = {
                         end
 
                         if destroyed then
-                            local bonus_chips = card.base.nominal + card.ability.bonus + (card.ability.perma_bonus or 0)
-                            local bonus_mult = (self.ability.mult or 0)
+                            local bonus_chips = card.base.nominal + card.ability.bonus + (card.ability.perma_bonus or 0) + (card.edition and card.edition.chips or 0)
+                            local bonus_mult = (card.ability.mult or 0) + (card.edition and card.edition.mult or 0)
                             self.ability.extra.chips = self.ability.extra.chips + bonus_chips
                             self.ability.extra.mult = self.ability.extra.mult + bonus_mult
                             table.insert(self.ability.extra.smoked, card)
