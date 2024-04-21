@@ -67,18 +67,22 @@ local jokers = {
                             self.ability.extra.mult = self.ability.extra.mult + bonus_mult
                             table.insert(self.ability.extra.smoked, card)
 
-                            G.E_MANAGER:add_event(Event({trigger = 'before', delay = 0.5, func = function()
-                                if card and not card.shattered and not card.destroyed then
-                                    if card.ability.name == 'Glass Card' then
-                                        card.shattered = true
-                                        card:shatter()
-                                    else
+                            if not card.getting_sliced then
+                                G.E_MANAGER:add_event(Event({trigger = 'before', delay = 0.5, func = function()
+                                    if card and not card.shattered and not card.destroyed then
                                         card.destroyed = true
                                         card:start_dissolve()
+                                        card_eval_status_text(self, 'extra', nil, nil, nil, {
+                                            message = "Smoked",
+                                            colour = G.C.RED,
+                                            instant = true
+                                        })
                                     end
-                                end
-                                return true
-                            end}))
+                                    return true
+                                end}))
+                            end
+                            card.getting_sliced = true
+
                             G.E_MANAGER:add_event(Event({trigger = 'before', delay = 1, func = function()
                                 if bonus_chips > 0 then
                                     card_eval_status_text(self, 'chips', bonus_chips, nil, nil, {
